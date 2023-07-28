@@ -12,8 +12,8 @@ const defaultFormFields = {
 const SignInForm = () => {
 
     const signInWithGoogle = async () => {
-        const {user} = await signInWithGooglePopup(); 
-        await createUserDocumentFromAuth(user); 
+        await signInWithGooglePopup(); 
+        
     }
 
     const [formFields, setFormFields] = useState(defaultFormFields); 
@@ -25,13 +25,12 @@ const SignInForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); 
-        if(email == '' || password == ''){
+        if(email === '' || password === ''){
             alert('Please provide with valid data'); 
             return;
         }
         try {
-            const response = await signInUserWithEmailAndPassword(email, password); 
-            console.log(response); 
+            const {user} = await signInUserWithEmailAndPassword(email, password); 
             resetFormFields(); 
         } catch (error) {
             switch (error.code) {
